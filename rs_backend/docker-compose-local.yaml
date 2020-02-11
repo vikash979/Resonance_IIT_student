@@ -1,0 +1,41 @@
+version: '3.2'
+
+services:
+    rs_backend:
+      build: .
+      ports:
+        - "8000:8000"
+      working_dir: /app
+      command: python3 manage.py runserver 0.0.0.0:8000
+      volumes:
+        - .:/app
+      environment:
+        - "PYTHONUNBUFFERED=1"
+      expose:
+        - "8000"
+
+    res_mariadb:
+      image: mariadb:10.2
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: resonance
+        MYSQL_USER: rroot
+        MYSQL_HOST: localhost
+        MYSQL_PASSWORD: rroot
+      volumes:
+       - /data/resonance/mariadb:/var/lib/mysql
+            
+    
+    nginx:
+        image: nginx:alpine
+        volumes:
+                - /data/nginx/conf.d:/etc/nginx/conf.d
+                - /app:/app
+                - /tmp:/host_tmp  
+        environment:
+                - KEY1=VAL2
+        ports:
+                - target: 80
+                  published: 80
+                  protocol: tcp
+                  mode: host

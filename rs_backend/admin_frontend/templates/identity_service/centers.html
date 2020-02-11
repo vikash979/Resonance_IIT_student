@@ -1,0 +1,787 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Center Listing</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header>      
+
+<!--Content Container-->
+    <main>
+         <!-- side_bar starts -->
+    {% include 'identity_service/side_bar.html' %}
+    <!-- side_bar ends -->
+    <div id="content-container">
+        <div class="page-header">
+                <h2>Centers</h2>
+               <!--  <ol class="breadcrumb">
+                    <li><a href="javascript:void(0)"><i class="fa fa-home"></i></a></li>
+                    <li><a href="listing.html">Users</a></li>
+                    <li class="active">Add User</li>
+                </ol> -->
+            </div>
+            <div class="table-top">
+                        <input type="search" id="txt-search" placeholder="Search" />
+                        <div>
+                           <div>
+                                <span id="center_count">5 Centers</span>
+                            </div>
+                            <div> 
+                              <a href="javascript:void(0)" class="add-center-link">
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add New</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>    
+                <div class="page-content">
+                    
+                    <div class="listing-wrapper">
+                    <div class="listing-container">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Centers</th>
+                                    <th>Country</th>
+                                    <th>Region</th>
+                                    <th>State</th>
+                                    <th>City</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody class="listingtable">
+                                   
+                                
+                                </tbody>
+                            </table>    
+                        </div>
+                        <div class="paginationWrapper">
+                            <div class="paginationContainer" actpage="1">
+                                <!-- <a href="#!-1">prev</a>
+                                <a href="#!1" class="selected">1</a>
+                                <a href="#!2">2</a>
+                                <a href="#!3">3</a>
+                                <a href="#!4">4</a>
+                                <a href="#!5">5</a>
+                                <a href="#!6">6</a>
+                                <a href="#!7">7</a>
+                                <a href="#!8">8</a>
+                                <a href="#!9">9</a>
+                                <a href="#!10">10</a>
+                                <a href="#!+1">next</a> -->
+                            </div>
+                        </div>
+                     </div>
+
+                    
+                  
+                    
+                    
+                    </div>
+
+                </div>
+
+            </div>
+ </main>           
+<!--Content Container-->
+
+</div>
+
+
+<!-- Add Content Dialog-->
+    <div class="addCentersDialog">
+        <div class="addCentersDialogContainer">
+            <div class="heading">Add Centers</div>
+            <div class="dialog-content">
+                <form id="create_center">
+                <div class="form-wrapper">
+                    <div class="form-block">
+                        <select name="country" id="countrydd" data-live-search="true" onchange="regionlist();" required>
+                            <!-- <option value="country1">Country1</option>
+                            <option value="country2">Country2</option>
+                            <option value="country3">Country3</option>
+                            <option value="country4">Country4</option>
+                            <option value="country5">Country5</option>
+                            <option value="country6">Country6</option> -->
+                        </select>
+                    </div>
+                    <div class="form-block">
+                        <select name="region" id="regiondd" data-live-search="true" onchange="statelist();" required>
+                            <!-- <option value="region1">Region1</option>
+                            <option value="region2">Region2</option>
+                            <option value="region3">Region3</option>
+                            <option value="region4">Region4</option>
+                            <option value="region5">Region5</option>
+                            <option value="region6">Region6</option> -->
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="form-wrapper">
+                    <div class="form-block">
+                        <select name="state" id="statedd" data-live-search="true" onchange="citylist();" required>
+                           <!--  <option value="state1">State1</option>
+                            <option value="state2">State2</option>
+                            <option value="state3">State3</option>
+                            <option value="state4">State4</option>
+                            <option value="state5">State5</option>
+                            <option value="state6">State6</option> -->
+                        </select>
+                    </div>
+                     <div class="form-block">
+                        <select name="city" id="citydd" data-live-search="true" required>
+                            <!-- <option value="city1">city1</option>
+                            <option value="city2">city2</option>
+                            <option value="city3">city3</option>
+                            <option value="city4">city4</option>
+                            <option value="city5">city5</option>
+                            <option value="city6">city6</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <div class="form-block">
+                        <input type="text" name="center" placeholder="Center" required />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a href="javascript:void(0);" onclick="location.reload();">Cancel</a>
+                    <button type="submit">Save</button>
+                </div>  
+                </form> 
+            </div>
+        </div>     
+    </div>
+    <!-- Add Content Dialog-->
+
+
+    <div id="edit_center_dilog" class="addCentersDialog foredit">
+        <div class="addCentersDialogContainer">
+            <div class="heading">Edit Centers</div>
+            <div class="dialog-content">
+                <form id="update_center">
+                <div class="form-wrapper">
+                    <div class="form-block">
+                        <select name="country_edit" id="countrydd" data-live-search="true" onchange="region_listing();" required>
+                            <!-- <option value="country1">Country1</option>
+                            <option value="country2">Country2</option>
+                            <option value="country3">Country3</option>
+                            <option value="country4">Country4</option>
+                            <option value="country5">Country5</option>
+                            <option value="country6">Country6</option> -->
+                        </select>
+                    </div>
+                    <div class="form-block">
+                        <select name="region_edit" id="regiondd" data-live-search="true" onchange="state_listing();" required>
+                            <!-- <option value="region1">Region1</option>
+                            <option value="region2">Region2</option>
+                            <option value="region3">Region3</option>
+                            <option value="region4">Region4</option>
+                            <option value="region5">Region5</option>
+                            <option value="region6">Region6</option> -->
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="form-wrapper">
+                    <div class="form-block">
+                        <select name="state_edit" id="statedd" data-live-search="true" onchange="city_listing();" required>
+                            <!-- <option value="state1">State1</option>
+                            <option value="state2">State2</option>
+                            <option value="state3">State3</option>
+                            <option value="state4">State4</option>
+                            <option value="state5">State5</option>
+                            <option value="state6">State6</option> -->
+                        </select>
+                    </div>
+                     <div class="form-block">
+                        <select name="city_edit" id="citydd" data-live-search="true" required>
+                            <!-- <option value="city1">city1</option>
+                            <option value="city2">city2</option>
+                            <option value="city3">city3</option>
+                            <option value="city4">city4</option>
+                            <option value="city5">city5</option>
+                            <option value="city6">city6</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <div class="form-block">
+                        <input type="text" name="center_edit" placeholder="Center" required />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a href="javascript:void(0);" onclick="location.reload();">Cancel</a>
+                    <button type="submit">Save</button>
+                </div>  
+                </form> 
+            </div>
+        </div>     
+    </div>
+    <!-- Add Content Dialog-->
+
+
+<!-- Confirmation Content Dialog-->
+    <div class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Confirmation</div>
+            <div class="dialog-content">
+                <h3>Are you Sure ?</h3>
+               <p>This is a confirmation dialog  with custom message.</p>
+            </div>
+             <div class="form-actions">
+                <a href="javascript:void(0);" onclick="confirmation('cancel')">Cancel</a>
+                <button onclick="confirmation('confirm')">Confirm</button>
+            </div>  
+        </div>     
+    </div>
+<!-- Confirmation Content Dialog-->
+
+<!-- Success Content Dialog-->
+    <div class="successDialog">
+        <div class="successDialogContainer">
+            <div class="heading">Success</div>
+            <div class="dialog-content">
+                <i class="fa fa-check"></i>
+                <h3>Awesome</h3>
+               <p>This is a Success dialog  with custom message.</p>
+            </div>
+             <div class="form-actions">
+                <a href="javascript:void(0);" onclick="success('cancel')">Cancel</a>
+                <button onclick="success('ok')">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- Success Content Dialog-->
+{% endblock base_content %}
+
+{% block htmljs %}
+
+
+<script type="text/javascript">
+    $('#organization_page').addClass("active");
+    $(' aside .aside-container li.active').addClass('open').children('ul').show();
+    $('#centers_page').addClass("active");
+    // $(' aside .aside-container li.active').addClass('open').children('ul').show();
+    $('aside .aside-container li.has-sub>a').on('click', function(){
+        //$(this).removeAttr('href');
+        var element = $(this).parent('li');
+        if (element.hasClass('open')) {
+            element.removeClass('open');
+            element.find('li').removeClass('open');
+            element.find('ul').slideUp(200);
+        }
+        else {
+            element.addClass('open')
+            element.children('ul').slideDown(200);
+            element.siblings('li').children('ul').slideUp(200);
+            element.siblings('li').removeClass('open');
+            element.siblings('li').find('li').removeClass('open');
+            element.siblings('li').find('ul').slideUp(200);
+        }
+    });
+
+     $("#upload_link").on('click', function(e){
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    })
+
+    var page_count = 1;
+    var max_value = 0;
+
+     $(document).ready(function(){
+        $.ajax({
+            url: BASE_SITE_URL + `/api/v1/auth/centers/`,
+            type: 'POST',
+            data: {'action': 'view', 'pagination': 1},
+            success: function(response){
+                for(var i=0;i<response.data.length;i++){
+                    var center_var = response.data[i].center_name;
+                    var city_var = response.data[i].city.city_name;
+                    var state_var = response.data[i].city.state.state_name;
+                    var region_var = response.data[i].city.state.region.region_name;
+                    var country_var = response.data[i].city.state.region.country.country_name;
+                    var location_data = `<tr>
+                    <td>${center_var}</td>
+                     <td>${country_var}</td>
+                     <td>${region_var}</td>
+                     <td>${state_var}</td>
+                     <td>${city_var}</td>
+                     <td><a href="javascript:void(0);" onclick='edit_center_dilog_func(${response.data[i].id});' class='edit-link'><i class="fa fa-pencil"></i></a><a href="javascript:void(0);" onclick='delete_center(${response.data[i].id});'><i class="fa fa-trash"></i></a></td>
+                 </tr>`;
+                 jQuery('.listingtable').append(location_data);
+                 max_value = response.data[i].num_pages;
+                 var count_data = i;
+                 $('#center_count').html(count_data + 1 + " Center");
+                }
+                $('.paginationContainer').append(`<a href="javascript:void(0);">prev</a>`)
+                for(var i=0; i < max_value; i++){
+                    var value = i
+                    if (value == 0){
+                        $('.paginationContainer').append(`<a href="javascript:void(0);" class="selected">${++value}</a>`)
+                    } else {
+                        $('.paginationContainer').append(`<a href="javascript:void(0);">${++value}</a>`)
+                    }
+                }
+                $('.paginationContainer').append(`<a href="javascript:void(0);">next</a>`)
+                set_fculty_pginator();
+            }
+        });
+    });
+
+    function set_fculty_pginator(){
+    $('.paginationContainer a').on('click', function(e){
+        $('.paginationContainer a').removeClass('selected');
+        var currBtn = e.target;
+        $(currBtn).addClass('selected');
+        if($(currBtn).html()=="prev"){
+            if(page_count==1){
+                page_count = 1;
+            }
+            else{
+                page_count-=1;
+            }
+        }
+        else if($(currBtn).html()=="next"){
+            if(page_count == max_value){
+                page_count=max_value;
+            }
+            else{
+                page_count+=1;
+            }
+            
+        }
+        else{
+            page_count = $(currBtn).html();
+        }
+        $('.listingtable').empty();
+    $.ajax({
+      url: BASE_SITE_URL + `/api/v1/auth/centers/`,
+      type: "POST",
+      dataType: "json",
+      data:{"action":"view", 'pagination': `${page_count}`},
+      success: function(response){
+          for(var i=0;i<response.data.length;i++){
+              $('.listingtable').append(`<tr>
+              <td>
+                  <div class="usersProfile">
+                      <div class="thumb"></div>
+                      <div class="thumb-content">
+                          <a href="#">${response.data[i].name}</a>
+                                  <div><span>${response.data[i].department.department}</span></div>
+                                  <div><span>${response.data[i].designation.designation}</span></div>
+                                  <div><span>${response.data[i].user.roles}</span></div>
+                          </div>
+                  </div>
+              </td>
+                              
+              <td>${response.data[i].center.center_name}</td>
+              <td>${response.data[i].subjects.id}</td>
+              <td><a href="javascript:void(0);" onclick='edit_center_dilog_func(${response.data[i].id});' class='edit-link'><i class="fa fa-pencil"></i></a><a href="javascript:void(0);" onclick='delete_center(${response.data[i].id});'><i class="fa fa-trash"></i></a></td>
+              </tr>`);
+
+              count_data+=1;
+            } 
+      }
+  });
+})
+}
+
+    // let tableData = [
+    //     { id: '1', center: 'Resonance Study center', country: 'India' , region: 'West', state: 'Rajasthan', city: 'Kota'},
+    //     { id: '2', center: 'Gantavya Eduventures', country: 'India' , region: 'West', state: 'Tripura', city: 'Agartala'},
+    //     { id: '3', center: 'Mumbai Kalyan', country: 'India' , region: 'West', state: 'Maharshtra', city: 'Mumbai'},
+    //     { id: '4', center: 'Infinite coaching institute', country: 'India' , region: 'West', state: 'Rajasthan', city: 'Shri Ganganagar'},
+    //     { id: '5', center: 'Resonance Study center', country: 'India' , region: 'North', state: 'Uttar Pradesh', city: 'Agra'},
+      
+        
+    // ]
+
+    // });
+
+
+    // let paginationData = [
+    //     { id: '1', center: 'Resonance Study center', country: 'India' , region: 'West', state: 'Rajasthan', city: 'Kota'},
+    //     { id: '2', center: 'Gantavya Eduventures', country: 'India' , region: 'West', state: 'Tripura', city: 'Agartala'},
+    //     { id: '3', center: 'Mumbai Kalyan', country: 'India' , region: 'West', state: 'Maharshtra', city: 'Mumbai'},
+    //     { id: '4', center: 'Infinite coaching institute', country: 'India' , region: 'West', state: 'Rajasthan', city: 'Shri Ganganagar'},
+    //     { id: '5', center: 'Resonance Study center', country: 'India' , region: 'North', state: 'Uttar Pradesh', city: 'Agra'},
+    // ]
+
+
+         function confirmation(type){
+             if (type === 'confirm'){
+                console.log("confirm");
+             }else{
+               console.log("cancel"); 
+             }  
+        }
+
+        function success(type){
+             if (type === 'ok'){
+                console.log("ok");
+             }else{
+               console.log("cancel"); 
+             }  
+        }
+
+
+jQuery(document).ready(function(){
+
+    
+
+  
+    // let tableHTML ='';
+    // let paginationHTML ='';
+
+
+    // tableData.forEach((val)=>{
+    //     tableHTML += `<tr>
+    //                 <td>${val.center}</td>
+    //                 <td>${val.country}</td>
+    //                 <td>${val.region}</td>
+    //                 <td>${val.state}</td>
+    //                 <td>${val.city}</td>
+    //                 <td><a href="javascript:void(0);" class='edit-link'><i class="fa fa-pencil"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
+    //             </tr>`;
+
+                
+    // });
+
+    
+    // jQuery('.listingtable').append(tableHTML);
+    
+   
+
+
+
+    jQuery('#txt-search').keyup(function(e){
+        let searchValue = $(this).val().toLowerCase();
+             console.log(searchValue);
+             console.log(tableData);
+             let getData = tableData.find(data => data.name === searchValue);
+             console.log(getData);
+   
+        });
+
+
+   jQuery('.add-center-link').click(function(){
+        //jQuery('.filter-section').css('display','flex');
+        jQuery('.addCentersDialog').addClass('open');
+        jQuery('.addCentersDialog.foredit').removeClass('open');
+
+    });  
+
+   // jQuery('table td .edit-link').click(function(){
+   //      //jQuery('.filter-section').css('display','flex');
+   //      jQuery('.addCentersDialog.foredit').addClass('open');
+
+   //  });  
+
+   $('#countrydd ,#statedd ,#citydd ,#regiondd').selectpicker(); 
+
+    jQuery('.addCentersDialog .form-actions a').click(function(){
+        jQuery('.addCentersDialog').removeClass('open');
+    });
+
+    jQuery('.addCentersDialog.foredit .form-actions a').click(function(){
+        jQuery('.addCentersDialog.foredit').removeClass('open');
+    });
+    
+
+   
+
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+<script>
+// $( "form" ).on( "submit", function( event ) {
+//       event.preventDefault();
+//       console.log( $( this ).serializeArray() );
+//     });
+
+
+</script>
+<script src="{% static 'js/site.js' %}"></script>
+<script>
+$.fn.serializeObject = function(){
+jQuery.ajaxSettings.traditional = true;
+var obj = {};
+$.each( this.serializeArray(), function(i,o){
+  var n = o.name,
+      v = o.value;
+      obj[n] = obj[n] === undefined ? v
+        : $.isArray( obj[n] ) ? obj[n].concat( v )
+        : [ obj[n], v ];
+});
+return obj;
+};
+
+$(document).ready(function(){
+$.ajax({
+    url: BASE_SITE_URL + `/api/v1/auth/country/`,
+    type: 'GET',
+    success: function(response){
+      var country_input = $('select[name="country"]');
+      for (var i=0;i<response.data.length;i++) {
+        country_input.append(`<option value='${response.data[i].id}'>${response.data[i].country_name}</option>`)
+      }
+      $('select[name="country"]').selectpicker('refresh');
+    }
+});
+});
+
+function country_listing(){
+$.ajax({
+    url: BASE_SITE_URL + `/api/v1/auth/country/`,
+    type: 'GET',
+    async: false,
+    success: function(response){
+      var country_input = $('select[name="country_edit"]');
+      for (var i=0;i<response.data.length;i++) {
+        country_input.append(`<option value='${response.data[i].id}'>${response.data[i].country_name}</option>`)
+      }
+      $('select[name="country_edit"]').selectpicker('refresh');
+    }
+});
+}
+
+function regionlist(){
+if ($('select[name="country"]').val() != "") {
+var country_val = $('select[name="country"]').val();
+$.ajax({
+  url: BASE_SITE_URL + `/api/v1/auth/country/${country_val}/`,
+  type: 'GET',
+  async: false,
+  success: function(response){
+    $('select[name="region"]').empty();
+    $('select[name="region"]').append(`<option selected="selected" disabled>Select Region</option>`)
+    $('select[name="region"]').selectpicker('refresh');
+    for (var i = 0; i < response.data.length; i++) {
+        $('select[name="region"]').append(`<option value='${response.data[i].id}'>${response.data[i].region_name}</option>`)
+
+    }
+    $('select[name="region"]').selectpicker('refresh');
+  }
+});
+}
+}
+
+function region_listing(){
+if ($('select[name="country_edit"]').val() != "") {
+var country_val = $('select[name="country_edit"]').val();
+$.ajax({
+  url: BASE_SITE_URL + `/api/v1/auth/country/${country_val}/`,
+  type: 'GET',
+  async: false,
+  success: function(response){
+    $('select[name="region_edit"]').empty();
+    $('select[name="region_edit"]').append(`<option selected="selected" disabled>Select Region</option>`)
+    $('select[name="region_edit"]').selectpicker('refresh');
+    for (var i = 0; i < response.data.length; i++) {
+        $('select[name="region_edit"]').append(`<option value='${response.data[i].id}'>${response.data[i].region_name}</option>`)
+
+    }
+    $('select[name="region_edit"]').selectpicker('refresh');
+  }
+});
+}
+}
+
+function statelist(){
+if ($('select[name="region"]').val() != ""){
+var country_val = $('select[name="country"]').val();
+var region_val = $('select[name="region"]').val();
+$.ajax({
+  url: BASE_SITE_URL + `/api/v1/auth/country/${country_val}/${region_val}/`,
+  type: 'GET',
+  async: false,
+  success: function(response){
+    $('select[name="state"]').empty();
+    $('select[name="state"]').append(`<option selected="selected" disabled>Select State</option>`)
+    $('select[name="state"]').selectpicker('refresh');
+    for (var i = 0; i < response.data.length; i++) {
+      $('select[name="state"]').append(`<option value='${response.data[i].id}'>${response.data[i].state_name}</option>`)
+    }
+    $('select[name="state"]').selectpicker('refresh');
+  }
+});
+}
+}
+
+function state_listing() {
+if ($('select[name="region_edit"]').val() != ""){
+var country_val = $('select[name="country_edit"]').val();
+var region_val = $('select[name="region_edit"]').val();
+$.ajax({
+  url: BASE_SITE_URL + `/api/v1/auth/country/${country_val}/${region_val}/`,
+  type: 'GET',
+  async: false,
+  success: function(response){
+    $('select[name="state_edit"]').empty();
+    $('select[name="state_edit"]').append(`<option selected="selected" disabled>Select State</option>`)
+    $('select[name="state_edit"]').selectpicker('refresh');
+    for (var i = 0; i < response.data.length; i++) {
+      $('select[name="state_edit"]').append(`<option value='${response.data[i].id}'>${response.data[i].state_name}</option>`)
+    }
+    $('select[name="state_edit"]').selectpicker('refresh');
+  }
+});
+}
+}
+
+function citylist(){
+if ($('select[name="state"]').val() != ""){
+var country_val = $('select[name="country"]').val();
+var region_val = $('select[name="region"]').val();
+var state_val = $('select[name="state"]').val();
+$.ajax({
+  url: BASE_SITE_URL + `/api/v1/auth/country/${country_val}/${region_val}/${state_val}/`,
+  type: 'GET',
+  async: false,
+  success: function(response){
+    $('select[name="city"]').empty();
+    $('select[name="city"]').append(`<option selected="selected" disabled>Select City</option>`)
+    $('select[name="city"]').selectpicker('refresh');
+    for (var i = 0; i < response.data.length; i++) {
+      $('select[name="city"]').append(`<option value='${response.data[i].id}'>${response.data[i].city_name}</option>`)
+    }
+    $('select[name="city"]').selectpicker('refresh');
+  }
+})
+}
+}
+
+function city_listing() {
+if ($('select[name="state_edit"]').val() != ""){
+var country_val = $('select[name="country_edit"]').val();
+var region_val = $('select[name="region_edit"]').val();
+var state_val = $('select[name="state_edit"]').val();
+$.ajax({
+  url: BASE_SITE_URL + `/api/v1/auth/country/${country_val}/${region_val}/${state_val}/`,
+  type: 'GET',
+  async: false,
+  success: function(response){
+    $('select[name="city_edit"]').empty();
+    $('select[name="city_edit"]').append(`<option selected="selected" disabled>Select City</option>`)
+    $('select[name="city_edit"]').selectpicker('refresh');
+    for (var i = 0; i < response.data.length; i++) {
+      $('select[name="city_edit"]').append(`<option value='${response.data[i].id}'>${response.data[i].city_name}</option>`)
+    }
+    $('select[name="city_edit"]').selectpicker('refresh');
+  }
+})
+}
+}
+
+</script>
+<script>
+$('#create_center').on('submit', function(e){
+    e.preventDefault();
+    get_city_value = $('select[name="city"]').val();
+    get_center_value = $('input[name="center"]').val();
+    $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/centers/`,
+        type: 'POST',
+        data: {'action': 'create', 'data': JSON.stringify($(this).serializeObject())},
+        success: function(response){
+            if(response.status == true){
+                location.reload();
+            }
+        }
+    });
+});
+
+function edit_center_dilog_func(attrid){
+    $('#edit_center_dilog').addClass('open');
+    localStorage.setItem('center_key', attrid)
+    $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/centers/`,
+        type: 'POST',
+        async: false,
+        data: {'action': 'view', 'conditions': JSON.stringify({'id': attrid})},
+        success: function(response){
+            var center_name_var = response.data[0].center_name;
+            var city_id_var = response.data[0].city.id;
+            var state_id_var = response.data[0].city.state.id;
+            var region_id_var = response.data[0].city.state.region.id;
+            var country_id_var = response.data[0].city.state.region.country.id;
+            country_listing();
+            $(`select[name="country_edit"] option[value="${country_id_var}"]`).attr('selected', 'selected');
+            $('select[name="country_edit"]').selectpicker('refresh');
+            region_listing();
+            $(`select[name="region_edit"] option[value="${region_id_var}"]`).attr('selected', 'selected')
+            $('select[name="region_edit"]').selectpicker('refresh');
+            state_listing();
+            $(`select[name="state_edit"] option[value="${state_id_var}"]`).attr('selected', 'selected')
+            $('select[name="state_edit"]').selectpicker('refresh');
+            city_listing();
+            $(`select[name="city_edit"] option[value="${city_id_var}"]`).attr('selected', 'selected')
+            $('select[name="city_edit"]').selectpicker('refresh');
+            $('input[name="center_edit"]').val(center_name_var);
+        }
+    });
+}
+
+$('#update_center').on('submit', function(e){
+    e.preventDefault();
+    $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/centers/`,
+        type: "POST",
+        data: {'action': 'update', 'conditions': JSON.stringify({'id': localStorage.center_key}), 'data': JSON.stringify($(this).serializeObject())},
+        success: function(response){
+            if(response.status == true){
+                localStorage.removeItem('center_key');
+                location.reload();
+            }
+        }
+    });
+});
+
+function delete_center(req_id){
+    // var req_data = new Object;
+    // req_data.action = 'remove';
+    // req_data.conditions = new Object;
+    // req_data.conditions.id = id
+    $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/centers/`,
+        type: 'POST',
+        data: {'action': 'remove', 'conditions': {'id': req_id}},
+        success: function(response){
+            if (response.status != false){
+                location.reload();
+            }
+        }
+    });
+}
+</script>      
+{% endblock htmljs %}

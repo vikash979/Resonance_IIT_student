@@ -1,0 +1,222 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Master Subject Listing</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header>
+         
+<!--Content Container-->
+    <main>
+        <!-- side_bar starts -->
+            {% include 'identity_service/side_bar.html' %}
+       <!-- side_bar ends -->
+       <div id="content-container">
+        <div class="page-header">
+                <h2>Master Subject</h2>
+               <!--  <ol class="breadcrumb">
+                    <li><a href="javascript:void(0)"><i class="fa fa-home"></i></a></li>
+                    <li><a href="listing.html">Users</a></li>
+                    <li class="active">Add User</li>
+                </ol> -->
+            </div>
+            <div class="table-top">
+                        <input type="search" id="txt-search" placeholder="Search" />
+                        <div>
+                           <div>
+                                <span id="subject_count"></span> Master Subject 
+                            </div>
+                            <div> 
+                              <a href="javascript:void(0)" class="add-session-link">
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add New</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="page-content">
+                    
+                        <div class="listing-wrapper">
+                        <div class="listing-container">
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Short Code</th>
+                                        <th>Description</th>
+                                        <th class="division-actions">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="listingtable">
+                                        <!-- <tr>
+                                            <td>title</td>
+                                                <td>shortcode</td>
+                                                <td>description</td>
+                                            <td class='division-actions'><a href="javascript:void(0);" class='edit-link'><i class="fa fa-pencil"></i></a><a href="#"><i class="fa fa-trash"></i></a></td>
+                                        </tr> -->
+                                    
+                                    </tbody>
+                                </table>    
+                            </div>
+                            <div class="paginationWrapper">
+                                <div id="divPagination" class="paginationContainer" actpage="1">
+                                    <!-- <a href="javascript:void(0)">prev</a>
+                                    <a href="javascript:void(0)" class="selected">1</a>
+                                    <a href="javascript:void(0)">2</a>
+                                    <a href="javascript:void(0)">3</a>
+                                    <a href="javascript:void(0)">4</a>
+                                    <a href="javascript:void(0)">5</a>
+                                    <a href="javascript:void(0)">6</a>
+                                    <a href="javascript:void(0)">7</a>
+                                    <a href="javascript:void(0)">8</a>
+                                    <a href="javascript:void(0)">9</a>
+                                    <a href="javascript:void(0)">10</a>
+                                    <a href="javascript:void(0)">next</a> -->
+                                </div>
+                            </div>
+                         </div>
+    
+                        
+                      
+                        
+                        
+                        </div>
+    
+                    </div>
+
+            </div>
+ </main>           
+<!--Content Container-->
+
+</div>
+
+
+<!-- Add Content Dialog-->
+<div id="addMaterSubjectDialog" class="addSessionDialog">
+    <div class="addSessionDialogContainer">
+        <div class="heading">Add Master Subject</div>
+        <div class="dialog-content">
+            <form id="add-subjects" method="POST" action="/api/v1/subject/master_subject/">
+            <div class="form-wrapper">
+                <div class="form-block">
+                    <input type="text" name="name" placeholder="Enter your title" required/>
+                </div>
+                 <div class="form-block">
+                    <input type="text" name="short_code" placeholder="Enter shortcode" required/>
+                </div>
+            </div>
+            <div class="form-wrapper">
+                 <div class="form-block">
+                    <textarea name="description" placeholder="Enter description" required></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <a href="javascript:void(0);">Cancel</a>
+                <button type="submit">Save</button>
+            </div>  
+            </form> 
+        </div>
+    </div>     
+</div>
+<!-- Add Content Dialog-->
+
+
+<!-- Add Content Dialog-->
+<div id="editMaterSubjectDialog" class="addSessionDialog foredit ">
+    <div class="addSessionDialogContainer">
+        <div class="heading">Edit Master Subject</div>
+        <div class="dialog-content">
+            <form id="edit-subjects" method="POST" action="/api/v1/subject/master_subject/">
+            <div class="form-wrapper">
+                <div class="form-block">
+                    <input type="text" id="edit_value_name" name="name" placeholder="Enter your title" required/>
+                </div>
+                 <div class="form-block">
+                    <input type="text" id="edit_value_shortCode" name="short_code" placeholder="Enter shortcode" required/>
+                </div>
+            </div>
+            <div class="form-wrapper">
+                 <div class="form-block">
+                    <textarea id="edit_value_description" name="description" placeholder="Enter description" required></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <a href="javascript:void(0);">Cancel</a>
+                <button type="submit">Save</button>
+            </div>  
+            </form> 
+        </div>
+    </div>     
+</div>
+<!-- Add Content Dialog-->
+
+<!-- Confirmation Content Dialog-->
+    <div class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Confirmation</div>
+            <div class="dialog-content">
+                <h3>Are you Sure ?</h3>
+               <p>This is a confirmation dialog  with custom message.</p>
+            </div>
+             <div class="form-actions">
+                <a href="javascript:void(0);" onclick="confirmation('cancel')">Cancel</a>
+                <button onclick="confirmation('confirm')">Confirm</button>
+            </div>  
+        </div>     
+    </div>
+<!-- Confirmation Content Dialog-->
+
+<!-- Success Content Dialog-->
+    <div class="successDialog">
+        <div class="successDialogContainer">
+            <div class="heading">Success</div>
+            <div class="dialog-content">
+                <i class="fa fa-check"></i>
+                <h3>Awesome</h3>
+               <p>This is a Success dialog  with custom message.</p>
+            </div>
+             <div class="form-actions">
+                <a href="javascript:void(0);" onclick="success('cancel')">Cancel</a>
+                <button onclick="success('ok')">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+<div id="error-dialogue" class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Error</div>
+            <div class="dialog-content">
+                <h3></h3>
+               <p id="error-msg"></p>
+            </div>
+             <div class="form-actions">
+                <button onclick="clickError()">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+{% endblock base_content %}
+
+{% block htmljs %}
+
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/master_subject.js' %}"></script>
+{% endblock htmljs %}

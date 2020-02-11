@@ -1,0 +1,452 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Update Student</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+
+<!--Header-->
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header>
+
+<!--Content Container-->
+<main>
+     <!-- side_bar starts -->
+     {% include 'identity_service/side_bar.html' %}
+     <!-- side_bar ends -->
+     <div id="content-container">
+        <div class="page-header">
+            <h2>Add Student</h2>
+            <ol class="breadcrumb">
+                <li><a href="javascript:void(0)"><i class="fa fa-home"></i></a></li>
+                <li><a href="/students/">Student</a></li>
+                <li class="active">Add student</li>
+            </ol>
+        </div>
+        <div class="page-content">
+
+
+                <div class="addUserWrapper">
+                     <form id='student_update' method='post'>
+                    <div class="add-user-block">
+                        <div class="thumb">
+                            <div class="thumb-placeholder"></div>
+                            <div>
+                                <input id="upload" type="file"/>
+                                <a href="javascript:void(0);" id="upload_link">Add Photo</a>
+                                <a href="javascript:void(0);" class="edit_link"><i class="fa fa-pencil"></i></a>
+                            </div>
+                        </div>
+                        <div class="add-user-content">
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Name</label>
+                                    <input type="text" name="name" placeholder="Enter Name" required/>
+                                </div>
+                                <div class="form-block">
+                                    <label>Self email</label>
+                                    <input type="text" name="student_email" placeholder="Enter self email" required/>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Self mobile no.</label>
+                                    <input type="tel" name="student_mobile" placeholder="Enter mobile no" required/>
+                                </div>
+                                <div class="form-block">
+                                    <label>Date of Birth (DOB)</label>
+
+                                        <input type="date"  name="student_dob" placeholder="Enter DOB" required/>
+
+                                </div>
+                                <div class="form-block">
+                                    <label>Gender</label>
+                                    <select name="gender" required>
+                                        <option value='1'>Male</option>
+                                        <option value='2'>female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Division</label>
+                                    <select id="divisionFilter" name="division" required>
+                                            <option value='' disabled selected>nothing selected</option>
+                                        <!-- <option value='1'>Division1</option>
+                                        <option value='2'>Division2</option> -->
+                                    </select>
+                                    <!-- <select name="division">
+                                        <option value='1'>Division1</option>
+                                        <option value='2'>Division2</option>
+                                    </select> -->
+                                </div>
+                                <div class="form-block">
+                                    <label>Medium</label>
+                                    <select name="medium" required>
+                                        <option value='1'>medium1</option>
+                                        <option value='2'>medium2</option>
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Country</label>
+                                    <select name="country" onchange="regionlist();" required>
+                                        <!-- <option>country1</option>
+                                        <option>country2</option> -->
+                                    </select>
+                                </div>
+                                <!-- <div class="form-block">
+                                    <label>Study Center</label>
+                                    <select name="studycenter">
+                                        <option>Study Center1</option>
+                                        <option>Study Center2</option>
+                                    </select>
+                                </div> -->
+                            </div>
+
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Region</label>
+                                    <select name="region" onchange="statelist();" required>
+                                        <!-- <option>Region1</option>
+                                        <option>Region2</option> -->
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>State</label>
+                                    <select name="state" onchange="citylist();" required>
+                                        <!-- <option>State1</option>
+                                        <option>State2</option> -->
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>City</label>
+                                    <select name="city" onchange="centerlist();" required>
+                                        <!-- <option>city1</option>
+                                        <option>city2</option> -->
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Study Center</label>
+                                    <select name="center" required>
+                                        <!-- <option>Study Center1</option>
+                                        <option>Study Center2</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Roll No</label>
+                                   <input type="text" name="role_number" placeholder="Enter roll no" required/>
+                                </div>
+                                <div class="form-block">
+                                    <label>Phase</label>
+                                    <select name="phase" required>
+                                        <option value="1">Phase1</option>
+                                        <option value="2">Phase2</option>
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Phase Start Date</label>
+                                    <input type="date" name="phase_start_date" placeholder="Enter phase start date" required/>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Session</label>
+                                   <select name="session" required>
+                                        <option value='1'>session1</option>
+                                        <option value='2'>session2</option>
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Programs</label>
+                                    <select name="program" required>
+                                        <option value='1'>program1</option>
+                                        <option value='2'>program2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Initial Batch</label>
+                                   <select name="initial_batch" required>
+                                        <option value='1'>Initial Batch1</option>
+                                        <option value='2'>Initial Batch2</option>
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Current batch</label>
+                                    <select name="current_batch" required>
+                                        <option value='1'>Current batch1</option>
+                                        <option value='2'>Current batch2</option>
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Previous batch</label>
+                                    <select name="pervious_batch" required>
+                                        <option value='1'>Previous batch1</option>
+                                        <option value='2'>Previous batch2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Class</label>
+                                   <select name="class" required>
+                                        <option value='1'>Class1</option>
+                                        <option value='2'>Class2</option>
+                                    </select>
+                                </div>
+                                <div class="form-block">
+                                    <label>Subjects</label>
+                                    <select name="subject" id="subject-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                        <!-- <option value='' disabled selected>nothing selected</option> -->
+                                        <!-- <option value="1">Subject1</option>
+                                        <option value="2">Subject2</option>
+                                        <option value="3">Subject3</option>
+                                        <option value="4">Subject4</option>
+                                        <option value="5">Subject5</option>
+                                        <option value="6">Subject6</option> -->
+                                    </select>
+                                    <!-- <select name="subject" id="example-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true">
+                                        <option value="1">Subject1</option>
+                                        <option value="2">Subject2</option>
+                                        <option value="3">Subject3</option>
+                                        <option value="4">Subject4</option>
+                                        <option value="5">Subject5</option>
+                                        <option value="6">Subject6</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Father name</label>
+                                   <input type="text" name="father_name" placeholder="Enter father name" required/>
+                                </div>
+                                <div class="form-block">
+                                    <label>Mother name</label>
+                                    <input type="text" name="mother_name" placeholder="Enter mother name" required/>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Father Email</label>
+                                   <input type="text" name="father_email" placeholder="Enter father email" required/>
+                                </div>
+                                <div class="form-block">
+                                    <label>Mother Email</label>
+                                    <input type="text" name="mother_email" placeholder="Enter mother email" required/>
+                                </div>
+                            </div>
+                            <div class="form-wrapper">
+                                <div class="form-block">
+                                    <label>Father Mobile</label>
+                                   <input type="tel" name="father_mobile" placeholder="Enter father mobile" required/>
+                                </div>
+                                <div class="form-block">
+                                    <label>Mother Mobile</label>
+                                    <input type="tel" name="mother_mobile" placeholder="Enter mother mobile" required/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <a href="/faculties/">Cancel</a>
+                        <button type="submit">Save</button>
+                    </div>
+                </form>
+                </div>
+        </div>
+    </div>
+</main>
+<!--Content Container-->
+
+
+
+</div>
+<!-- errror Dialog-->
+<div id="error-dialogue" class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Error</div>
+            <div class="dialog-content">
+                <h3></h3>
+               <p id="error-msg"></p>
+            </div>
+             <div class="form-actions">
+                <button onclick="clickError()">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+{% endblock base_content %}
+
+{% block htmljs %}
+
+script type="text/javascript">
+    jQuery(document).ready(function(){
+
+        $(' aside .aside-container li.active').addClass('open').children('ul').show();
+        $('aside .aside-container li.has-sub>a').on('click', function(){
+            //$(this).removeAttr('href');
+            var element = $(this).parent('li');
+            if (element.hasClass('open')) {
+                element.removeClass('open');
+                element.find('li').removeClass('open');
+                element.find('ul').slideUp(200);
+            }
+            else {
+                element.addClass('open')
+                element.children('ul').slideDown(200);
+                element.siblings('li').children('ul').slideUp(200);
+                element.siblings('li').removeClass('open');
+                element.siblings('li').find('li').removeClass('open');
+                element.siblings('li').find('ul').slideUp(200);
+            }
+        });
+
+        // $( "form" ).on( "submit", function( event ) {
+        //   event.preventDefault();
+        //   console.log( $( this ).serializeArray() );
+        // });
+
+       $("#upload_link").on('click', function(e){
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+
+   $('#example-getting-started').selectpicker();
+
+   // $('.datepicker').datetimepicker({
+   //      format: 'yyyy-mm-dd'//,
+   //      // hoursDisabled: 'True',
+   //      // minutesDisabled:'True'
+   //  });
+
+    });
+
+
+</script>
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/student.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        var student_id = localStorage.student_key;
+        $.ajax({
+            url: BASE_SITE_URL + `/api/v1/auth/student/`,
+            type: 'POST',
+            data: {'action': 'view', 'conditions': JSON.stringify({'id': student_id})},
+            success: function(response){
+                $('input[name="name"]').val(response.data.name)
+                $('input[name="student_email"]').val(response.data.email)
+                $('input[name="student_mobile"]').val(response.data.phone)
+                $('input[name="student_dob"]').val(response.data.dob)
+                $('input[name="role_number"]').val(response.data.role_number)
+                $('input[name="phase_start_date"]').val(response.data.phase_start_date)
+                $('input[name="father_name"]').val(response.data.father_name)
+                $('input[name="mother_name"]').val(response.data.mother_name)
+                $('input[name="father_email"]').val(response.data.father_email)
+                $('input[name="father_mobile"]').val(response.data.father_mobile)
+                $('input[name="mother_email"]').val(response.data.mother_email)
+                $('input[name="mother_mobile"]').val(response.data.mother_mobile)
+                $(`select[name="gender"] option[value="${response.data.gender}"]`).attr('selected', 'selected')
+                $('select[name="gender"]').selectpicker('refresh');
+                var center_name_id = response.data.center.id;
+                var city_name_id = response.data.center.city.id;
+                var state_name_id = response.data.center.city.state.id;
+                var region_name_id = response.data.center.city.state.region.id;
+                var country_name_id = response.data.center.city.state.region.country.id;
+                $(`select[name="country"] option[value="${country_name_id}"]`).attr('selected', 'selected');
+                regionlist();
+                var selected_value = $('select[name="region"] option:selected');
+                $(`select[name="region"] option[value="${region_name_id}"]`).attr('selected', 'selected');
+                $('select[name="region"]').selectpicker('refresh');
+                statelist();
+                $(`select[name="state"] option[value="${state_name_id}"]`).attr('selected', 'selected')
+                $('select[name="state"]').selectpicker('refresh');
+                citylist();
+                $(`select[name="city"] option[value="${city_name_id}"]`).attr('selected', 'selected')
+                $('select[name="city"]').selectpicker('refresh');
+                centerlist();
+                $(`select[name="center"] option[value="${center_name_id}"]`).attr('selected', 'selected')
+                $('select[name="center"]').selectpicker('refresh');
+                $(`select[name="phase"] option[value="${response.data.phase}"]`).attr('selected', 'selected')
+                $('select[name="phase"]').selectpicker('refresh');
+                $(`select[name="session"] option[value="${response.data.session}"]`).attr('selected', 'selected')
+                $('select[name="session"]').selectpicker('refresh');
+                $(`select[name="division"] option[value="${response.data.division}"]`).attr('selected', 'selected')
+                $('select[name="division"]').selectpicker('refresh');
+                $(`select[name="medium"] option[value="${response.data.medium}"]`).attr('selected', 'selected')
+                $('select[name="medium"]').selectpicker('refresh');
+                $(`select[name="medium"] option[value="${response.data.medium}"]`).attr('selected', 'selected')
+                $('select[name="medium"]').selectpicker('refresh');
+                $(`select[name="program"] option[value="${response.data.student_program}"]`).attr('selected', 'selected')
+                $('select[name="program"]').selectpicker('refresh');
+                $(`select[name="initial_batch"] option[value="${response.data.inital_batch}"]`).attr('selected', 'selected')
+                $('select[name="initial_batch"]').selectpicker('refresh');
+                $(`select[name="current_batch"] option[value="${response.data.current_batch}"]`).attr('selected', 'selected')
+                $('select[name="current_batch"]').selectpicker('refresh');
+                $(`select[name="pervious_batch"] option[value="${response.data.previous_batch}"]`).attr('selected', 'selected')
+                $('select[name="pervious_batch"]').selectpicker('refresh');
+                $(`select[name="subject"] option[value="${response.data.student_class}"]`).attr('selected', 'selected')
+                $('select[name="subject"]').selectpicker('refresh');
+            }
+        })
+    });
+
+    // function push_data(data){
+    //     for(var key in data){
+    //         if (data.hasOwnProperty(key)) {
+    //           var value = data[key];
+    //           if (key != 'id'){
+    //             $(`input[name="${key}"]`).val(value);
+    //           }
+    //         }
+    //     }
+    // }
+
+    $('#student_update').on('submit', function(e){
+        e.preventDefault();
+        var req_data = new Object;
+        req_data.action = 'update';
+        req_data.conditions = JSON.stringify({'id': localStorage.student_key});
+        req_data.data = JSON.stringify($(this).serializeObject());
+        $.ajax({
+            url: BASE_SITE_URL + `/api/v1/auth/student/`,
+            type: 'POST',
+            data: req_data,
+            success: function(response){
+                if (response.status == true){
+                    window.location.href = '/students/';
+                }
+                else if (response.status == false) {
+                    $("#error-msg").html(response.error[0]+" !");
+                $('#error-dialogue').css("display","flex");
+                }
+            },
+            error: function(response){
+                $("#error-msg").html("there is problem on serverside"+" !");
+                $('#error-dialogue').css("display","none");
+                $('#error-dialogue').css("display","flex");
+            }
+        });
+    });
+</script>
+{% endblock htmljs %}

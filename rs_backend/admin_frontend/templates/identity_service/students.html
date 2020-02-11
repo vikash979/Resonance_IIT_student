@@ -1,0 +1,659 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Faculty / Coordinator Listing</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header>
+
+<!--Content Container-->
+    <main>
+       <!-- side_bar starts -->
+     {% include 'identity_service/side_bar.html' %}
+     <!-- side_bar ends -->
+
+     <div id="content-container">
+        <div class="table-top">
+                    <input type="search" id="txt-search" placeholder="Search" />
+                    <div>
+                       <div>
+                            124 Results
+                        </div>
+                        <div>
+                          <a href="/students/add/">
+                                <i class="fa fa-plus"></i>
+                                <span>Add New</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <div class="page-content">
+
+                <div class="listing-wrapper">
+                <div class="listing-container">
+                    <div class="table-wrapper">
+                        <table id="student_data">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Program</th>
+                                <th>Phase</th>
+                                <th>Current Batch</th>
+                                <th>Session</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody class="listingtable">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="paginationWrapper">
+                        <div class="paginationContainer" actpage="1">
+                            <!-- <a href="#!-1">prev</a>
+                            <a href="javascript:void(0);" class="selected">1</a>
+                            <a href="javascript:void(0);">1</a>
+                            <a href="javascript:void(0);">2</a>
+                            <a href="javascript:void(0);">3</a>
+                            <a href="javascript:void(0);">4</a>
+                            <a href="javascript:void(0);">5</a>
+                            <a href="javascript:void(0);">6</a>
+                            <a href="javascript:void(0);">7</a>
+                            <a href="javascript:void(0);">8</a>
+                            <a href="javascript:void(0);">9</a>
+                            <a href="javascript:void(0);">10</a>
+                            <a href="#!+1">next</a> -->
+                        </div>
+                    </div>
+                 </div>
+
+
+                <div class="filter-section" id="filter-section">
+                    <div class="filter-section-container">
+                         <div class="form-actions">
+                            <div>Filters</div>
+                            <a class="filterApplyBtn" href="javascript:void(0);">Apply</a>
+                        </div>
+                        <div class="filters-wrapper">
+                        <div class="filter-block">
+                            <div class="filter-header">
+                                    Programs
+                                    <!-- <div>
+                                       <a href="javascript:void(0);" class="add-departments-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-departments-link"><i class="fa fa-cog"></i></a>
+                                   </div> -->
+                            </div>
+                            <div class="filter-list">
+                                <ol class="programFilter">
+
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="filter-block">
+                            <div class="filter-header">
+                                Phase
+                                <!-- <div>
+                                    <a href="javascript:void(0);" class="add-designation-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-designation-link"><i class="fa fa-cog"></i></a>
+                                </div> -->
+                            </div>
+                            <div class="filter-list">
+                                <ol class="phaseFilter">
+
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="filter-block">
+                            <div class="filter-header">
+                                Current Batch
+                                <!-- <div>
+                                    <a href="javascript:void(0);" class="add-division-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-division-link"><i class="fa fa-cog"></i></a>
+                                </div>  -->
+                            </div>
+                            <div class="filter-list">
+                                <ol class="currentbatchFilter">
+
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="filter-block">
+                            <div class="filter-header">
+                                Session
+                                <div>
+                                    <a href="javascript:void(0);" class="add-skills-link"><i class="fa fa-plus"></i></a><!-- <a href="manage.html" class="manage-skills-link"><i class="fa fa-cog"></i></a> -->
+                                </div>
+                            </div>
+                            <div class="filter-list">
+                                <ol class="sessionFilter">
+
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="filter-block">
+                            <div class="filter-header">
+                                Study Center
+                                <!-- <div>
+                                    <a href="javascript:void(0);" class="add-et-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-et-link"><i class="fa fa-cog"></i></a>
+                                </div>  -->
+                            </div>
+                            <div class="filter-list">
+                                <ol class="centersFilter">
+
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="filter-block">
+                            <div class="filter-header">
+                                Division
+                                <!-- <div>
+                                    <a href="javascript:void(0);" class="add-roles-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-roles-link"><i class="fa fa-cog"></i></a>
+                                </div>  -->
+                            </div>
+                            <div class="filter-list">
+                                <ol class="divisionFilter">
+
+                                </ol>
+                            </div>
+                        </div>
+                     </div>
+
+                    </div>
+                </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+</main>
+<!--Content Container-->
+
+</div>
+
+
+<!-- Add Content Dialog-->
+<div class="AddContentDialog">
+    <div class="AddContentDialogContainer">
+        <div class="heading">Add Session</div>
+        <div class="dialog-content">
+            <form>
+            <input type="search"name="tags-outside" placeholder="Type and Search" />
+            <div class="form-actions">
+                <a href="javascript:void(0);">Cancel</a>
+                <button type="submit">Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Add Content Dialog-->
+
+
+<!-- Confirmation Content Dialog-->
+<div class="confirmationDialog">
+    <div class="confirmationDialogContainer">
+        <div class="heading">Confirmation</div>
+        <div class="dialog-content">
+            <h3>Are you Sure ?</h3>
+           <p>This is a confirmation dialog  with custom message.</p>
+        </div>
+         <div class="form-actions">
+            <a href="javascript:void(0);" onclick="confirmation('cancel')">Cancel</a>
+            <button onclick="confirmation('confirm')">Confirm</button>
+        </div>
+    </div>
+</div>
+<!-- Confirmation Content Dialog-->
+
+<!-- Success Content Dialog-->
+<div class="successDialog">
+    <div class="successDialogContainer">
+        <div class="heading">Success</div>
+        <div class="dialog-content">
+            <i class="fa fa-check"></i>
+            <h3>Awesome</h3>
+           <p>This is a Success dialog  with custom message.</p>
+        </div>
+         <div class="form-actions">
+            <a href="javascript:void(0);" onclick="success('cancel')">Cancel</a>
+            <button onclick="success('ok')">OK</button>
+        </div>
+    </div>
+</div>
+<!-- Success Content Dialog-->
+
+<!-- Success Content Dialog-->
+<!-- errror Dialog-->
+<div id="error-dialogue" class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Error</div>
+            <div class="dialog-content">
+                <h3></h3>
+               <p id="error-msg"></p>
+            </div>
+             <div class="form-actions">
+                <button onclick="clickError()">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+{% endblock base_content %}
+
+{% block htmljs %}
+
+
+<script type="text/javascript">
+    var page_count = 1;
+    var max_page = 0;
+    function clickError(){
+  $('#error-dialogue').css("display","none");
+  }
+
+
+
+
+    let tableData = [
+        { id: '1', name: 'matish', class: 'class name1' , program: 'program1', phase: 'phase1', currentbatch: 'current batch1', session: '20xx-xx1', center: 'center1' , division: 'division1'},
+        { id: '2', name: 'satish' , class: 'class name2' , program: 'program2', phase: 'phase2', currentbatch: 'current batch2', session: '20xx-xx2' , center: 'center2' , division: 'division2'},
+        { id: '3', name: 'mohit' , class: 'class name3' , program: 'program3', phase: 'phase3', currentbatch: 'current batch3', session: '20xx-xx3',center: 'center3' , division: 'division3'},
+        { id: '4', name: 'abhishek' , class: 'class name4' , program: 'program4', phase: 'phase4', currentbatch: 'current batch4', session: '20xx-xx4', center: 'center4' , division: 'division4'},
+        { id: '5', name: 'sachin' , class: 'class name5' , program: 'program5', phase: 'phase5', currentbatch: 'current batch5', session: '20xx-xx5', center: 'center5' , division: 'division5'}
+
+    ]
+
+
+    let paginationData = [
+       { id: '1', name: 'matish', class: 'class name1' , program: 'program1', phase: 'phase1', currentbatch: 'current batch1', session: '20xx-xx1', center: 'center1' , division: 'division1'},
+        { id: '2', name: 'satish' , class: 'class name2' , program: 'program2', phase: 'phase2', currentbatch: 'current batch2', session: '20xx-xx2' , center: 'center2' , division: 'division2'},
+        { id: '3', name: 'mohit' , class: 'class name3' , program: 'program3', phase: 'phase3', currentbatch: 'current batch3', session: '20xx-xx3',center: 'center3' , division: 'division3'},
+        { id: '4', name: 'abhishek' , class: 'class name4' , program: 'program4', phase: 'phase4', currentbatch: 'current batch4', session: '20xx-xx4', center: 'center4' , division: 'division4'},
+        { id: '5', name: 'sachin' , class: 'class name5' , program: 'program5', phase: 'phase5', currentbatch: 'current batch5', session: '20xx-xx5', center: 'center5' , division: 'division5'}
+    ]
+
+
+         function confirmation(type){
+             if (type === 'confirm'){
+                console.log("confirm");
+             }else{
+               console.log("cancel");
+             }
+        }
+
+        function success(type){
+             if (type === 'ok'){
+                console.log("ok");
+             }else{
+               console.log("cancel");
+             }
+        }
+
+
+jQuery(document).ready(function(){
+
+    jQuery('.add-departments-link ,.add-designation-link, .add-division-link,.add-skills-link').click(function(){
+        //jQuery('.filter-section').css('display','flex');
+        jQuery('.AddContentDialog').addClass('open');
+    });
+
+     jQuery('.AddContentDialog .form-actions a').click(function(){
+        jQuery('.AddContentDialog').removeClass('open');
+    });
+
+
+     jQuery('.confirmationDialog .form-actions a').click(function(){
+        jQuery('.confirmationDialog').removeClass('open');
+    });
+
+
+
+
+
+
+    let programFilterData = [];
+    let phaseFilterData = [];
+    let currentbatchFilterData = [];
+    let sessionFilterData = [];
+    let centersFilterData = [];
+    let divisionFilterData = [];
+
+    let tableHTML ='';
+    let paginationHTML ='';
+
+    $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/student/`,
+        type: 'POST',
+        async: true,
+        data: {'action': 'view', 'pagination': `${page_count}`},
+        success: function(response){
+            for (var i = 0; i < response.data.length; i++) {
+                table_data = `<tr>
+                    <td>
+                        <div class="usersProfile">
+                            <div class="thumb"></div>
+                            <div class="thumb-content">
+                                <a href="#">${response.data[i].name}</a>
+                                <div><span>${response.data[i].student_class}</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${response.data[i].student_program}</td>
+                    <td>${response.data[i].phase}</td>
+                    <td>${response.data[i].current_batch}</td>
+                    <td>${response.data[i].session}</td>
+                    <td><a href="#" onclick="update_student(${response.data[i].id})"><i class="fa fa-pencil"></i></a><a href="#" onclick="delete_student(${response.data[i].id})"><i class="fa fa-trash"></i></a><a href="#"><i class="fa fa-cog"></i></a></td>
+                </tr>`;
+                $('#student_data').append(table_data);
+                max_page = response.data[i].num_pages;
+            }
+            $('.paginationContainer').append(`<a href="javascript:void(0);">prev</a>`)
+            for(var i=0; i < max_page; i++){
+                var value = i
+                if (value == 0){
+                    $('.paginationContainer').append(`<a href="javascript:void(0);" class="selected">${++value}</a>`)
+                } else {
+                    $('.paginationContainer').append(`<a href="javascript:void(0);">${++value}</a>`)
+                }
+            }
+            $('.paginationContainer').append(`<a href="javascript:void(0);">next</a>`)
+            set_paginator()
+        }
+    });
+
+    function set_paginator(){
+        $('.paginationContainer a').on('click', function(e){
+        $('.paginationContainer a').removeClass('selected');
+        var currBtn = e.target;
+        $(currBtn).addClass('selected');
+        if($(currBtn).html()=="prev"){
+            if(page_count==1){
+                page_count = 1;
+            }
+            else{
+                page_count-=1;
+            }
+        }
+        else if($(currBtn).html()=="next"){
+            if(page_count == max_page){
+                page_count=max_page;
+            }
+            else{
+                page_count+=1;
+            }
+
+        }
+        else{
+            page_count = $(currBtn).html();
+        }
+        $('.listingtable').empty();
+        $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/student/`,
+        type: 'POST',
+        async: true,
+        data: {'action': 'view', 'pagination': `${page_count}`},
+        success: function(response){
+            for (var i = 0; i < response.data.length; i++) {
+                table_data = `<tr>
+                    <td>
+                        <div class="usersProfile">
+                            <div class="thumb"></div>
+                            <div class="thumb-content">
+                                <a href="#">${response.data[i].name}</a>
+                                <div><span>${response.data[i].student_class}</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${response.data[i].student_program}</td>
+                    <td>${response.data[i].phase}</td>
+                    <td>${response.data[i].current_batch}</td>
+                    <td>${response.data[i].session}</td>
+                    <td><a href="#" onclick="update_student(${response.data[i].id})"><i class="fa fa-pencil"></i></a><a href="#" onclick="delete_student(${response.data[i].id})"><i class="fa fa-trash"></i></a><a href="#"><i class="fa fa-cog"></i></a></td>
+                </tr>`;
+                $('#student_data').append(table_data);
+                // number_of_pages = response.data[i].num_pages;
+            }
+        }
+    });
+    });
+    }
+
+    // tableData.forEach((val)=>{
+    //     programFilterData.push(val.program);
+    //     phaseFilterData.push(val.phase);
+    //     currentbatchFilterData.push(val.currentbatch);
+    //     sessionFilterData.push(val.session);
+    //     centersFilterData.push(val.center);
+    //     divisionFilterData.push(val.division);
+    //     tableHTML += `<tr>
+    //                 <td>
+    //                     <div class="usersProfile">
+    //                         <div class="thumb"></div>
+    //                         <div class="thumb-content">
+    //                             <a href="#">${val.name}</a>
+    //                             <div><span>${val.class}</span></div>
+    //                         </div>
+    //                     </div>
+    //                 </td>
+    //                 <td>${val.program}</td>
+    //                 <td>${val.phase}</td>
+    //                 <td>${val.currentbatch}</td>
+    //                 <td>${val.session}</td>
+    //                 <td><a href="#"><i class="fa fa-pencil"></i></a><a href="#"><i class="fa fa-trash"></i></a><a href="#"><i class="fa fa-cog"></i></a></td>
+    //             </tr>`;
+
+
+    // });
+
+
+
+   let programFilterHTML = '';
+    programFilterData.forEach((val)=>{
+        programFilterHTML += `<li><label><input type="checkbox" value="${val}" class="programcheckbox">${val}</label></li>`;
+    });
+
+    let phaseFilterHTML = '';
+    phaseFilterData.forEach((val)=>{
+        phaseFilterHTML += `<li><label><input type="checkbox" value="${val}" class="phasecheckbox">${val}</label></li>`;
+    });
+
+    let currentbatchFilterHTML = '';
+    currentbatchFilterData.forEach((val)=>{
+        currentbatchFilterHTML += `<li><label><input type="checkbox" value="${val}" class="currentbatchcheckbox">${val}</label></li>`;
+    });
+
+    let sessionFilterHTML = '';
+    sessionFilterData.forEach((val)=>{
+        sessionFilterHTML += `<li><label><input type="checkbox" value="${val}" class="sessioncheckbox">${val}</label></li>`;
+    });
+
+    let centersFilterHTML = '';
+   centersFilterData.forEach((val)=>{
+        centersFilterHTML += `<li><label><input type="checkbox" value="${val}" class="centerscheckbox">${val}</label></li>`;
+    });
+
+    let divisionFilterHTML = '';
+   divisionFilterData.forEach((val)=>{
+        divisionFilterHTML += `<li><label><input type="checkbox" value="${val}" class="divisioncheckbox">${val}</label></li>`;
+    });
+
+
+
+    jQuery('.listingtable').append(tableHTML);
+    jQuery('.programFilter').append(programFilterHTML);
+    jQuery('.phaseFilter').append(phaseFilterHTML);
+    jQuery('.currentbatchFilter').append(currentbatchFilterHTML);
+    jQuery('.sessionFilter').append(sessionFilterHTML);
+    jQuery('.centersFilter').append(centersFilterHTML);
+    jQuery('.divisionFilter').append(divisionFilterHTML);
+
+
+
+
+    jQuery('#txt-search').keyup(function(e){
+        let searchValue = $(this).val().toLowerCase();
+             console.log(searchValue);
+             console.log(tableData);
+             let getData = tableData.find(data => data.name === searchValue);
+             console.log(getData);
+
+        });
+
+
+    jQuery('.filterApplyBtn').click(function(){
+            //jQuery(this).removeClass('is_disabled');
+
+            let filterApplyData = {};
+            let programFilterdata = [];
+            let phaseFilterData = [];
+            let currentbatchFilterData = [];
+            let sessionsfilterData = [];
+            let centersFilterData = [];
+            let divisionFilterData = [];
+
+
+
+            jQuery.each(jQuery(".programcheckbox:checked"), function(){
+               programFilterdata.push($(this).val());
+            });
+
+            jQuery.each(jQuery(".phasecheckbox:checked"), function(){
+                phaseFilterData.push($(this).val());
+            });
+
+            jQuery.each(jQuery(".currentbatchcheckbox:checked"), function(){
+                currentbatchFilterData.push($(this).val());
+            });
+
+            jQuery.each(jQuery(".sessioncheckbox:checked"), function(){
+                sessionsfilterData.push($(this).val());
+            });
+
+            jQuery.each(jQuery(".centerscheckbox:checked"), function(){
+               centersFilterData.push($(this).val());
+            });
+
+            jQuery.each(jQuery(".divisioncheckbox:checked"), function(){
+                divisionFilterData.push($(this).val());
+            });
+
+
+
+
+
+            let typeprogram = JSON.stringify(programFilterdata);
+            let typephase = JSON.stringify(phaseFilterData);
+            let typecurrentbatch = JSON.stringify(currentbatchFilterData);
+            let typesession = JSON.stringify(sessionsfilterData);
+            let typecenters = JSON.stringify(centersFilterData);
+            let typedivision = JSON.stringify(divisionFilterData);
+
+            filterApplyData.program=typeprogram;
+            filterApplyData.phase=typephase;
+            filterApplyData.currentbatch=typecurrentbatch;
+            filterApplyData.session=typesession;
+            filterApplyData.centers=typecenters;
+            filterApplyData.division=typedivision;
+
+            console.log("filteredApplyData" + filterApplyData.program);
+            console.log("filteredApplyData" + filterApplyData.phase);
+            console.log("filteredApplyData" + filterApplyData.currentbatch);
+            console.log("filteredApplyData" + filterApplyData.session);
+            console.log("filteredApplyData" + filterApplyData.centers);
+            console.log("filteredApplyData" + filterApplyData.division);
+
+        });
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+<script>
+$( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      console.log( $( this ).serializeArray() );
+    });
+
+
+var input = document.querySelector('input[name="tags-outside"]'),
+// init Tagify script on the above inputs
+tagify = new Tagify(input, {
+  whitelist: ["A# .NET", "A# (Axiom)", "A-0 System", "A+", "A++", "ABAP", "ABC", "ABC ALGOL", "ABSET", "ABSYS", "ACC", "Accent", "Ace DASL", "ACL2", "Avicsoft", "ACT-III", "Action!", "ActionScript", "Ada", "Adenine", "Agda", "Agilent VEE", "Agora", "AIMMS", "Alef", "ALF", "ALGOL 58", "ALGOL 60", "ALGOL 68", "ALGOL W", "Alice", "Alma-0", "AmbientTalk", "Amiga E", "AMOS", "AMPL", "Apex (Salesforce.com)", "APL", "AppleScript", "Arc", "ARexx", "Argus", "AspectJ", "Assembly language", "ATS", "Ateji PX", "AutoHotkey", "Autocoder", "AutoIt", "AutoLISP / Visual LISP", "Averest", "AWK", "Axum", "Active Server Pages", "ASP.NET", "B", "Babbage", "Bash", "BASIC", "bc", "BCPL", "BeanShell", "Batch (Windows/Dos)", "Bertrand", "BETA", "Bigwig", "Bistro", "BitC", "BLISS", "Blockly", "BlooP", "Blue", "Boo", "Boomerang", "Bourne shell (including bash and ksh)", "BREW", "BPEL", "B", "C--", "C++ – ISO/IEC 14882", "C# – ISO/IEC 23270", "C/AL", "Caché ObjectScript", "C Shell", "Caml", "Cayenne", "CDuce", "Cecil", "Cesil", "Céu", "Ceylon", "CFEngine", "CFML", "Cg", "Ch", "Chapel", "Charity", "Charm", "Chef", "CHILL", "CHIP-8", "chomski", "ChucK", "CICS", "Cilk", "Citrine (programming language)", "CL (IBM)", "Claire", "Clarion", "Clean", "Clipper", "CLIPS", "CLIST", "Clojure", "CLU", "CMS-2", "COBOL – ISO/IEC 1989", "CobolScript – COBOL Scripting language", "Cobra", "CODE", "CoffeeScript", "ColdFusion", "COMAL", "Combined Programming Language (CPL)", "COMIT", "Common Intermediate Language (CIL)", "Common Lisp (also known as CL)", "COMPASS", "Component Pascal", "Constraint Handling Rules (CHR)", "COMTRAN", "Converge", "Cool", "Coq", "Coral 66", "Corn", "CorVision", "COWSEL", "CPL", "CPL", "Cryptol", "csh", "Csound", "CSP", "CUDA", "Curl", "Curry", "Cybil", "Cyclone", "Cython", "Java", "Javascript", "M2001", "M4", "M#", "Machine code", "MAD (Michigan Algorithm Decoder)", "MAD/I", "Magik", "Magma", "make", "Maple", "MAPPER now part of BIS", "MARK-IV now VISION:BUILDER", "Mary", "MASM Microsoft Assembly x86", "MATH-MATIC", "Mathematica", "MATLAB", "Maxima (see also Macsyma)", "Max (Max Msp – Graphical Programming Environment)", "Maya (MEL)", "MDL", "Mercury", "Mesa", "Metafont", "Microcode", "MicroScript", "MIIS", "Milk (programming language)", "MIMIC", "Mirah", "Miranda", "MIVA Script", "ML", "Model 204", "Modelica", "Modula", "Modula-2", "Modula-3", "Mohol", "MOO", "Mortran", "Mouse", "MPD", "Mathcad", "MSIL – deprecated name for CIL", "MSL", "MUMPS", "Mystic Programming L"],
+  maxTags: 10,
+  dropdown: {
+    maxItems: 20,           // <- mixumum allowed rendered suggestions
+    classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+    enabled: 0,             // <- show suggestions on focus
+    closeOnSelect: true    // <- do not hide the suggestions dropdown once an item has been selected
+  }
+})
+
+
+</script>
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/student_listing.js' %}"></script>
+</script>
+<script>
+$(document).ready(function(){
+    if (localStorage.getItem('student_key')){
+        localStorage.removeItem('student_key');
+    }
+});
+function update_student(attrid){
+    localStorage.setItem('student_key', attrid);
+    window.location.href = '/students/edit/';
+}
+function delete_student(attrid){
+    $.ajax({
+        url: BASE_SITE_URL + `/api/v1/auth/student/`,
+        type: 'POST',
+        data: {'action': 'remove', 'conditions': JSON.stringify({'id': attrid})},
+        success: function(response){
+            if (response.status == true){
+                location.reload();
+            }
+            else if (response.status == false) {
+                    $("#error-msg").html(response.error[0]+" !");
+                $('#error-dialogue').css("display","flex");
+            }
+        },
+        error: function(response){
+            $("#error-msg").html("there is problem on serverside"+" !");
+            $('#error-dialogue').css("display","none");
+            $('#error-dialogue').css("display","flex");
+        }
+    });
+}
+</script>
+{% endblock htmljs %}

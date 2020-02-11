@@ -1,0 +1,235 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Add Faculty / Coordinator</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header> 		
+
+<!--Content Container-->
+<main>
+    <!-- side_bar starts -->
+    {% include 'identity_service/side_bar.html' %}
+    <!-- side_bar ends -->
+	<div id="content-container">
+        <div class="page-header">
+            <h2>Add Faculity / Cordinator</h2>
+            <ol class="breadcrumb">
+                <li><a href="javascript:void(0)"><i class="fa fa-home"></i></a></li>
+                <li><a href="/faculties/">Faculity / Cordinator</a></li>
+                <li class="active">Add Faculity</li>
+            </ol>
+        </div>
+        <div class="page-content">
+            
+                 
+            <div class="addUserWrapper">
+                <form id="faculty_creation" method="POST" action="api/vi/">
+                    <div class="addUserWrapper">
+                        <div class="add-user-block">
+                            <div class="thumb">
+                                <div class="thumb-placeholder"></div>
+                                <div>
+                                    <input id="upload" name="profile_pic" type="file"/>
+                                    <a href="javascript:void(0);" id="upload_link">Add Photo</a>
+                                    <a href="javascript:void(0);" class="edit_link"><i class="fa fa-pencil"></i></a>
+                                </div>
+
+                            </div>
+                            <div class="add-user-content">
+                                <div class="form-wrapper">
+                                    <div class="form-block">
+                                        <label>Name</label>
+                                        <input type="text" name="name" data-type="input" placeholder="Enter Name" required/>
+                                    </div>
+                                    <div class="form-block">
+                                        <label>Subject</label>
+                                        <!-- <input type="text" name="subject" placeholder="Enter Subject" /> -->
+                                        <select name="subject" id="subject_list" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                                <!-- <option value="physics">physics</option><option value="econimics">econimics</option><option value="economics">economics</option><option value="economics">economics</option> -->
+                                            <!-- <option value="Subject1">Subject1</option>
+                                            <option value="Subject2">Subject2</option>
+                                            <option value="Subject3">Subject3</option>
+                                            <option value="Subject4">Subject4</option>
+                                            <option value="Subject5">Subject5</option>
+                                            <option value="Subject6">Subject6</option>                                         -->
+                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-wrapper">
+                                    <div class="form-block">
+                                        <label>Role</label>
+                                        <select name="role" required>
+                                            <!-- <option>Role here</option>
+                                            <option>Role1</option>
+                                            <option>Role2</option>
+                                            <option>Role3</option> -->
+                                            <option selected="selected" disabled>Role here</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-block">
+                                            <label>Department</label>
+                                            <select name="department" id="department-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                                
+                                            </select>
+                                        <!-- <label>Department</label>
+                                        <input type="text" name="department" data-type="tagify" placeholder="Enter Department" /> -->
+                                    </div>
+                                </div>
+                                <div class="form-wrapper">
+                                    <div class="form-block">
+                                            <label>Designation</label>
+                                            <select name="designation" id="designation-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                                
+                                            </select>
+                                        <!-- <label>Designation</label>
+                                        <input type="text" name="designation" data-type="tagify" placeholder="Type and Search" /> -->
+                                        <!-- <input type="text" name="designation" placeholder="Enter Designation" /> -->
+                                    </div>
+                                    <div class="form-block">
+                                            <label>Employment Type</label>
+                                            <select name="etname" id="et-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                                
+                                            </select>
+                                        <!-- <label>Employment Type</label>
+                                        <input type="text" name="et" data-type="tagify" placeholder="Enter ET" /> -->
+                                    </div>
+                                </div>
+                                <div class="form-wrapper">
+                                    <div class="form-block">
+                                        <label>Skills</label>
+                                        <select name="et" id="skill-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                                
+                                        </select>
+                                    </div>
+                                    <div class="form-block">
+                                        <label>Batches</label>
+                                        <select name="batches" id="batches-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                            <option value="1">Batch1</option>
+                                            <option value="2">Batch2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-wrapper">
+                                    <div class="form-block">
+                                            <label>Country</label>
+                                            <select name="Country" id="country-getting-started" data-selected-text-format="count" data-live-search="true" onchange="regionlist();" required>
+                                                <!-- <option value="Country1">Country1</option>
+                                                <option value="Country2">Country2</option> -->
+                                            </select>
+                
+                                    </div>
+                                    <div class="form-block">
+                                        <label>Region</label>
+                                        <select name="Region" id="region-getting-started"
+                                        data-selected-text-format="count" data-live-search="true" onchange="statelist();" required>
+                                            <!-- <option value="Region1">Region1</option>
+                                            <option value="Region2">Region2</option>
+                                            <option value="Region3">Region3</option>
+                                            <option value="Region4">Region4</option>
+                                            <option value="Region5">Region5</option>
+                                            <option value="Region6">Region6</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-wrapper">
+                                <div class="form-block">
+                                        <label>State</label>
+                                        <select name="State" id="state-getting-started" 
+                                        data-selected-text-format="count" data-live-search="true" onchange="citylist();" required>
+                                            <!-- <option value="State1">State1</option>
+                                            <option value="State2">State2</option>
+                                            <option value="State3">State3</option>
+                                            <option value="State4">State4</option>
+                                            <option value="State5">State5</option>
+                                            <option value="State6">State6</option> -->
+                                        </select>
+                                    </div>
+                                    <div class="form-block">
+                                        <label>City</label>
+                                        <select name="City" id="city-getting-started"
+                                        data-selected-text-format="count" data-live-search="true" onchange="centerlist();" required>
+                                            <!-- <option value="City1">City1</option>
+                                            <option value="City2">City2</option>
+                                            <option value="City3">City3</option>
+                                            <option value="City4">City4</option>
+                                            <option value="City5">City5</option>
+                                            <option value="City6">City6</option> -->
+                                        </select>
+                                    </div>
+                                </div>   
+
+                                <div class="form-wrapper">
+                                        <div class="form-block">
+                                                <label>Center</label>
+                                                <select name="center" id="center-getting-started"
+                                                data-selected-text-format="count" data-live-search="true" required>
+                                                    <!-- <option value="Center1">Center1</option>
+                                                    <option value="Center2">Center2</option>
+                                                    <option value="Center3">Center3</option> -->
+                                                </select>
+                                        </div>
+                                        <div class="form-block">
+                                            <label>Division</label>
+                                            <select name="division" id="division-getting-started" multiple="multiple" data-selected-text-format="count" data-live-search="true" required>
+                                                <!-- <option value="" >Please Select Division</option> -->
+                                                <!-- <option value="Center2">Center2</option>
+                                                <option value="Center3">Center3</option> -->
+                                            </select>
+                                    </div>
+            
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <a href="/faculties/">Cancel</a>
+                            <button type="submit">Save</button>
+                        </div>   
+                    </form>
+            </div>
+    </div>
+    </div>
+</main>       
+<!--Content Container-->
+
+<!-- errror Dialog-->
+<div id="error-dialogue" class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Error</div>
+            <div class="dialog-content">
+                <h3></h3>
+               <p id="error-msg"></p>
+            </div>
+             <div class="form-actions">
+                <button onclick="clickError()">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+
+</div>
+{% endblock base_content %}
+
+{% block htmljs %}
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/add_html.js' %}"></script>
+{% endblock htmljs %}

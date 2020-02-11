@@ -1,0 +1,206 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Division Listing</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header>        
+
+<!--Content Container-->
+    <main>
+         <!-- side_bar starts -->
+       {% include 'identity_service/side_bar.html' %}
+       <!-- side_bar ends -->
+       <div id="content-container">
+        <div class="page-header">
+                <h2>Division</h2>
+               <!--  <ol class="breadcrumb">
+                    <li><a href="javascript:void(0)"><i class="fa fa-home"></i></a></li>
+                    <li><a href="listing.html">Users</a></li>
+                    <li class="active">Add User</li>
+                </ol> -->
+            </div>
+            <div class="table-top">
+                        <input type="search" id="txt-search" placeholder="Search" />
+                        <div>
+                           <div>
+                                <span id="division_count"></span> Divisions 
+                            </div>
+                            <div> 
+                              <a href="javascript:void(0)" class="add-division-link">
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add New</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="page-content">
+                    
+                        <div class="listing-wrapper">
+                        <div class="listing-container">
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th class="division-actions">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="listingtable">
+                                       
+                                    
+                                    </tbody>
+                                </table>    
+                            </div>
+                            <div class="paginationWrapper">
+
+                                <div id="divPagination" class="paginationContainer" actpage="1">
+                                    <!-- <a href="#!-1">prev</a>
+                                    <a href="#!1" class="selected">1</a>
+                                    <a href="#!2">2</a>
+                                    <a href="#!3">3</a>
+                                    <a href="#!4">4</a>
+                                    <a href="#!5">5</a>
+                                    <a href="#!6">6</a>
+                                    <a href="#!7">7</a>
+                                    <a href="#!8">8</a>
+                                    <a href="#!9">9</a>
+                                    <a href="#!10">10</a>
+                                    <a href="#!+1">next</a> -->
+
+                                </div>
+                            </div>
+                         </div>
+    
+                        
+                      
+                        
+                        
+                        </div>
+    
+                    </div>
+
+            </div>
+ </main>           
+<!--Content Container-->
+
+</div>
+
+
+<!-- Add Content Dialog-->
+<div id="addDivisionDialog" class="addDivisionDialog">
+    <div class="addDivisionDialogContainer">
+        <div class="heading">Add Division</div>
+        <div class="dialog-content">
+            <form id="add-division" method="POST" action="/api/v1/auth/division/">
+            <div class="form-wrapper">
+                <div class="form-block">
+                    <input type="text" name="division" placeholder="Add title" required/>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <a href="javascript:void(0);">Cancel</a>
+                <button type="submit">Save</button>
+            </div>  
+            </form> 
+        </div>
+    </div>     
+</div>
+<!-- Add Content Dialog-->
+
+
+<!-- Add Content Dialog-->
+<div id="editDivisionDialog" class="addDivisionDialog foredit">
+    <div class="addDivisionDialogContainer">
+        <div class="heading">Edit Division</div>
+        <div class="dialog-content">
+            <form id="editValueForm" method="POST" action="/api/v1/auth/division/">
+            <div class="form-wrapper">
+                <div class="form-block">
+                    <input id="edit_value" type="text" name="division" placeholder="Add title" required/>
+                </div>
+            </div>
+            <div class="form-actions">
+                <a href="javascript:void(0);">Cancel</a>
+                <button type="submit">Save</button>
+            </div>  
+            </form> 
+        </div>
+    </div>     
+</div>
+<!-- Add Content Dialog-->    
+
+
+<!-- Confirmation Content Dialog-->
+    <div class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Confirmation</div>
+            <div class="dialog-content">
+                <h3>Are you Sure ?</h3>
+               <p>This is a confirmation dialog  with custom message.</p>
+            </div>
+             <div class="form-actions">
+                <a href="javascript:void(0);" onclick="confirmation('cancel')">Cancel</a>
+                <button onclick="confirmation('confirm')">Confirm</button>
+            </div>  
+        </div>     
+    </div>
+<!-- Confirmation Content Dialog-->
+
+<!-- Success Content Dialog-->
+    <div class="successDialog">
+        <div class="successDialogContainer">
+            <div class="heading">Success</div>
+            <div class="dialog-content">
+                <i class="fa fa-check"></i>
+                <h3>Awesome</h3>
+               <p>This is a Success dialog  with custom message.</p>
+            </div>
+             <div class="form-actions">
+                <a href="javascript:void(0);" onclick="success('cancel')">Cancel</a>
+                <button onclick="success('ok')">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- Success Content Dialog-->
+
+<!-- errror Dialog-->
+<div id="error-dialogue" class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Error</div>
+            <div class="dialog-content">
+                <h3></h3>
+               <p id="error-msg"></p>
+            </div>
+             <div class="form-actions">
+                <button onclick="clickError()">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+{% endblock base_content %}
+
+{% block htmljs %}
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/division.js' %}"></script>
+{% endblock htmljs %}

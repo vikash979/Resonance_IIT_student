@@ -1,0 +1,314 @@
+{% extends 'identity_service/base.html' %}
+{% load static %}
+{% block header %}
+<meta charset="UTF-8"/>
+
+<title>Faculty / Coordinator Listing</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="user-scalable = 1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}" type="text/css"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+<link href="{% static 'css/newdesign.css' %}" rel="stylesheet" type="text/css">
+{% endblock header %}
+{% block css %}
+
+
+{% endblock %}
+{% block base_content %}
+
+<div id="container">
+<!--Header-->
+{% include 'identity_service/nav.html' %}
+<!-- <header>  	
+
+<!--Content Container-->
+<main>
+     <!-- side_bar starts -->
+     {% include 'identity_service/side_bar.html' %}
+     <!-- side_bar ends -->
+     <div id="content-container">
+        <div class="table-top">
+                  <input type="search"  id="txt-search" placeholder="Search" />
+                  <div>
+                     <div>
+                          <span id="faculty_count"></span> Results 
+                      </div>
+                      <div> 
+                        <a href="/faculties/add/">
+                              <i class="fa fa-plus"></i>
+                              <span>Add New</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>    
+              <div class="page-content">
+                  
+                  <div class="listing-wrapper">
+                  <div class="listing-container">
+                      <div class="table-wrapper">
+                          <table>
+                              <thead>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Center</th>
+                                  <th>Subject</th>
+                                  <th>Actions</th>
+                              </tr>
+                              </thead>
+                              <tbody class="listingtable">
+                                  <!-- <tr>
+                                      <td>
+                                          <div class="usersProfile">
+                                              <div class="thumb"></div>
+                                              <div class="thumb-content">
+                                                  <a href="#">name</a>
+                                                          <div><span>department</span></div>
+                                                          <div><span>designation</span></div>
+                                                          <div><span>Role</span></div>
+                                                  </div>
+                                          </div>
+                                      </td>
+                                                      
+                                      <td>Center</td>
+                                      <td>Subject</td>
+                                      <td><a href="#"><i class="fa fa-pencil"></i></a><a href="#"><i class="fa fa-trash"></i></a><a href="#"><i class="fa fa-cog"></i></a></td>
+                                      </tr> -->
+
+                              </tbody>
+                          </table>    
+                      </div>
+                      <div class="paginationWrapper">
+                          <div class="paginationContainer" actpage="1">
+                              <!-- <a href="#!-1">prev</a>
+                              <a href="#!1" class="selected">1</a>
+                              <a href="#!2">2</a>
+                              <a href="#!3">3</a>
+                              <a href="#!4">4</a>
+                              <a href="#!5">5</a>
+                              <a href="#!6">6</a>
+                              <a href="#!7">7</a>
+                              <a href="#!8">8</a>
+                              <a href="#!9">9</a>
+                              <a href="#!10">10</a>
+                              <a href="#!+1">next</a> -->
+                          </div>
+                      </div>
+                   </div>
+
+                  
+                  <div class="filter-section" id="filter-section">
+                      <div class="filter-section-container">
+                           <div class="form-actions">
+                              <div>Filters</div>
+                              <a class="filterApplyBtn" href="javascript:void(0);">Apply</a>
+                          </div>  
+                          <div class="filters-wrapper">
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                      Departments
+                                      <div>
+                                         <a href="javascript:void(0);" class="add-departments-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-departments-link"><i class="fa fa-cog"></i></a> 
+                                     </div>
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="departmentFilter">
+                                  </ol>
+                              </div>
+                          </div>
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  Designation
+                                  <div>
+                                      <a href="javascript:void(0);" class="add-designation-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-designation-link"><i class="fa fa-cog"></i></a> 
+                                  </div>
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="designationFilter">
+                                     
+                                  </ol>
+                              </div>
+                          </div>
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  Division
+                                  <div>
+                                      <a href="javascript:void(0);" class="add-division-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-division-link"><i class="fa fa-cog"></i></a>
+                                  </div> 
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="divisionFilter">
+                                      <!-- <li><label><input type="checkbox" value="division1" class="divisioncheckbox">division1</label></li> -->
+                                  </ol>
+                              </div>
+                          </div>
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  Skills
+                                  <div>
+                                      <a href="javascript:void(0);" class="add-skills-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-et-link"><i class="fa fa-cog"></i></a> 
+                                  </div> 
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="skillFilter">
+                                      <!-- <li><label><input type="checkbox" value="skill1" class="skillscheckbox">skill1</label></li> -->
+                                  </ol>
+                              </div>
+                          </div>
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  ET
+                                  <div>
+                                      <a href="javascript:void(0);" class="add-et-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-et-link"><i class="fa fa-cog"></i></a> 
+                                  </div> 
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="ETFilter">
+                                      <!-- <li><label><input type="checkbox" value="employementtype1" class="etcheckbox">employementtype1</label></li> -->
+                                  </ol>
+                              </div>
+                          </div>
+                          <!-- <div class="filter-block">
+                              <div class="filter-header">
+                                  Roles
+                                  <div>
+                                      <a href="javascript:void(0);" class="add-roles-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-roles-link"><i class="fa fa-cog"></i></a> 
+                                  </div> 
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="rolesFilter">
+                                      <li><label><input type="checkbox" value="role1" class="rolescheckbox">role1</label></li>
+                                  </ol>
+                              </div>
+                          </div> -->
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  Centers
+                                  <div>
+                                      <a href="javascript:void(0);" class="add-centers-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-centers-link"><i class="fa fa-cog"></i></a> 
+                                  </div> 
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="centersFilter">
+                                      <li><label><input type="checkbox" value="center1" class="centerscheckbox">center1</label></li>
+                                  </ol>
+                              </div>
+                          </div>
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  Subjects
+                                  <!--  <div>
+                                      <a href="javascript:void(0);" class="add-subjects-link"><i class="fa fa-plus"></i></a><a href="manage.html" class="manage-subjects-link"><i class="fa fa-cog"></i></a> 
+                                  </div>  -->
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="subjectsFilter">
+                                      <!-- <li><label><input type="checkbox" value="subject1" class="subjectscheckbox">subject1</label></li> -->
+                                  </ol>
+                              </div>
+                          </div>
+                          <div class="filter-block">
+                              <div class="filter-header">
+                                  Batch
+                                  <!--<a href="javascript:void(0);"><i class="fa fa-plus"></i>Add</a>-->
+                              </div>
+                              <div class="filter-list">
+                                  <ol class="batchFilter">
+                                      <!-- <li><label><input type="checkbox" value="batch1" class="batchcheckbox">batch1</label></li> -->
+                                  </ol>
+                              </div>
+                          </div>
+                      </div>
+                           
+                      </div>
+                  </div>
+
+                  
+                  
+                  </div>
+
+              </div>
+
+          </div>
+      </main>
+<!--Content Container-->
+
+
+
+
+</div>
+
+
+<!-- Add Content Dialog-->
+<div class="AddContentDialog">
+  <div class="AddContentDialogContainer">
+      <div class="heading">Add Department</div>
+      <div class="dialog-content">
+          <form>
+          <input type="search"name="tags-outside" placeholder="Type and Search" />
+          <div class="form-actions">
+              <a href="javascript:void(0);">Cancel</a>
+              <button type="submit">Save</button>
+          </div>  
+          </form> 
+      </div>
+  </div>     
+</div>
+<!-- Add Content Dialog-->
+
+
+<!-- Confirmation Content Dialog-->
+  <div class="confirmationDialog">
+      <div class="confirmationDialogContainer">
+          <div class="heading">Confirmation</div>
+          <div class="dialog-content">
+              <h3>Are you Sure ?</h3>
+             <p>This is a confirmation dialog  with custom message.</p>
+          </div>
+           <div class="form-actions">
+              <a href="javascript:void(0);" onclick="confirmation('cancel')">Cancel</a>
+              <button onclick="confirmation('confirm')">Confirm</button>
+          </div>  
+      </div>     
+  </div>
+<!-- Confirmation Content Dialog-->
+
+<!-- Success Content Dialog-->
+  <div class="successDialog">
+      <div class="successDialogContainer">
+          <div class="heading">Success</div>
+          <div class="dialog-content">
+              <i class="fa fa-check"></i>
+              <h3>Awesome</h3>
+             <p>This is a Success dialog  with custom message.</p>
+          </div>
+           <div class="form-actions">
+              <a href="javascript:void(0);" onclick="success('cancel')">Cancel</a>
+              <button onclick="success('ok')">OK</button>
+          </div>  
+      </div>     
+  </div>
+<!-- Success Content Dialog-->
+
+<!-- errror Dialog-->
+<div id="error-dialogue" class="confirmationDialog">
+        <div class="confirmationDialogContainer">
+            <div class="heading">Error</div>
+            <div class="dialog-content">
+                <h3></h3>
+               <p id="error-msg"></p>
+            </div>
+             <div class="form-actions">
+                <button onclick="clickError()">OK</button>
+            </div>  
+        </div>     
+    </div>
+<!-- errror Dialog-->
+{% endblock base_content %}
+
+{% block htmljs %}
+<script src="{% static 'js/site.js' %}"></script>
+<script src="{% static 'js/faculty_listing.js' %}"></script>
+{% endblock htmljs %}	

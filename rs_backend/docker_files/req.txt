@@ -1,0 +1,8 @@
+django==2.2.9
+mysqlclient
+requests
+django-model-utils==2.6.1
+Pillow
+django-filter
+django-cors-headers
+djangorestframework
