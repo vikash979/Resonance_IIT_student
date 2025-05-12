@@ -1,6 +1,7 @@
 # Dockerfile
 FROM resonance_env
 ADD . /app
+
 WORKDIR /app
 #ADD /start.sh /start.sh
 # EXPOSE port 8000 to allow communication to/from server
